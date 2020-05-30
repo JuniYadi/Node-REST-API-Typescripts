@@ -7,10 +7,11 @@
   "license": "MIT",
   "scripts": {
     "ts": "rm -rf ./build && tsc",
-    "tsc": "rm -rf ./build && tsc -W",
-    "dev": "nodemon ./build/index.js"
+    "tsc": "rm -rf ./build && tsc -w",
+    "dev": "NODE_ENV=development PORT=3000 nodemon ./build/index.js"
   },
   "dependencies": {
+    "@types/express": "^4.17.6",
     "express": "^4.17.1"
   },
   "devDependencies": {
