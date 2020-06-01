@@ -11,13 +11,13 @@ export default class Database {
 
     constructor() {
         // connect to database
-        this.connect();
+        this._connect();
     }
 
     /**
      * Generate Connection Instance to Database
      */
-    connect() {
+    _connect() {
         let monggoUrl: string;
 
         if (this._username) {
@@ -26,15 +26,37 @@ export default class Database {
             monggoUrl = `mongodb://${this._host}:${this._port}/${this._database}`;
         }
 
-        mongoose.connect(monggoUrl, {
+        const connect = () => {
+            mongoose.connect(
+                monggoUrl,
+                {
+                    useNewUrlParser: true,
+                    useUnifiedTopology: true
+                }
+            )
+            .then(() => {
+                console.info(`Successfully re-connected`);
+            })
+            .catch(error => {
+                console.error('Error connecting to database: ', error);
+                process.exit(1);
+            });
+        }
+
+        mongoose.connect(
+            monggoUrl,
+            {
                 useNewUrlParser: true,
                 useUnifiedTopology: true
-        })
+            }
+        )
 
         const db = mongoose.connection;
         db.on('error', console.error.bind(console, 'connection error:'));
         db.once('open', function() {
             console.log(`we're connected!`)
         });
+        db.on('disconnected', connect);
+
     }
 }

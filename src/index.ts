@@ -1,12 +1,16 @@
 import express from 'express'
 import helmet from 'helmet'
 import morgan from 'morgan'
+import Database from './config/database'
 import web from './routes/web'
 import cookieSession from './routes/middleware/CookieSession'
 import * as dotenv from 'dotenv';
 
 // Setup Envroitment From .env
 dotenv.config()
+
+// Make Connection to Database
+new Database()
 
 // Setup Instance Express
 const app = express()
