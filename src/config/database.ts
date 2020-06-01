@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import TypeDatabase from '../type/Database';
 import * as dotenv from 'dotenv';
 dotenv.config()
 
