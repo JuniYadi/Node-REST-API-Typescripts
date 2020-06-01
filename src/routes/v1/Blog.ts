@@ -1,5 +1,5 @@
 import express from 'express'
-import { index } from '../../controllers/blog'
+import { index } from '../../controllers/Blog'
 
 const blog = express.Router()
 
