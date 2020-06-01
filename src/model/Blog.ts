@@ -1,14 +1,19 @@
-import mongoose from 'mongoose';
-import Database from '../config/database'
-
-// Make Connection to Database
-new Database()
+import mongoose, { Schema, Document } from 'mongoose';
 
 // Table Name
 const table = 'blog'
 
+// Interfaces Schema
+export interface IBlog extends Document {
+    title: string,
+    body: string,
+    user_id: string,
+    categories: string,
+    tags: string
+}
+
 // Table Schema Collection
-const schema = new mongoose.Schema({
+const schema = new Schema({
     title: {
         type: String,
         required: true
@@ -30,4 +35,4 @@ const schema = new mongoose.Schema({
 })
 
 // Export Model
-export default mongoose.model(table, schema)
+export default mongoose.model<IBlog>(table, schema)
