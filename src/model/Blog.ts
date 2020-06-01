@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import Database from '../config/database'
 
 // Make Connection to Database
-const connection = new Database()
+new Database()
 
 // Table Name
 const table = 'blog'
