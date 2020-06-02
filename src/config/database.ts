@@ -35,7 +35,7 @@ export default class Database {
                 }
             )
             .then(() => {
-                console.info(`Successfully re-connected`);
+                console.info(`Successfully re-connected to database`);
             })
             .catch(error => {
                 console.error('Error connecting to database: ', error);
@@ -51,10 +51,13 @@ export default class Database {
             }
         )
 
+        // Allow Index
+        mongoose.set('useCreateIndex', true)
+
         const db = mongoose.connection;
         db.on('error', console.error.bind(console, 'connection error:'));
         db.once('open', function() {
-            console.log(`we're connected!`)
+            // console.log(`connected to database`)
         });
         db.on('disconnected', connect);
 
