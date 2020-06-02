@@ -1,25 +1,17 @@
-import express, {Request, Response, NextFunction} from 'express'
+import express from 'express'
+import ErrorHandling from './middleware/ErrorHandling'
 import Blog from './v1/Blog'
 import Auth from './v1/Auth'
 
+// Extend Express Route
 const web = express.Router()
 
-// routes
+// REST API Routes
 web.use('/blog', Blog)
 web.use('/auth', Auth)
 
-// Error Handling
-interface Error {
-    status?: number;
-    message?: string;
-}
+// REST API Error Handling Middleware
+web.use(ErrorHandling);
 
-web.use(( error: Error , req: Request, res: Response, next: NextFunction) => {
-	res.status(422).json({
-        code: 422,
-        success: false,
-        message: error.message
-    });
-});
-
+// Export all route
 export default web
