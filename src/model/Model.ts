@@ -14,12 +14,12 @@ export interface IModel extends Document {
 
 // Table Schema Collection
 const schema = new mongoose.Schema(
-{
-    //
-},
-{
-    timestamps: true
-})
+    {
+        //
+    }, {
+        timestamps: true
+    }
+)
 
 // Export Model
 export default mongoose.model<IModel>(table, schema)

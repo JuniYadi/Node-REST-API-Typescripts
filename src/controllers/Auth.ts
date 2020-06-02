@@ -75,11 +75,11 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         const { email, password } = req.body
 
         // find data by email in database
-        const query = await User.findOne({email: email}, async (err: any, data: UserDocument) => {
+        const query = await User.findOne({ email: email }, async (err: any, data: UserDocument) => {
             // compare password in login
             const checkPassword = await bcrypt.compare(password, data.password)
 
-            if(checkPassword) {
+            if (checkPassword) {
                 res.send({
                     _id: data._id,
                     email: email,

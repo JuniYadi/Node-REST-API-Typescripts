@@ -34,13 +34,13 @@ export default class Database {
                     useUnifiedTopology: true
                 }
             )
-            .then(() => {
-                console.info(`Successfully re-connected to database`);
-            })
-            .catch(error => {
-                console.error('Error connecting to database: ', error);
-                process.exit(1);
-            });
+                .then(() => {
+                    console.info(`Successfully re-connected to database`);
+                })
+                .catch(error => {
+                    console.error('Error connecting to database: ', error);
+                    process.exit(1);
+                });
         }
 
         mongoose.connect(
@@ -56,7 +56,7 @@ export default class Database {
 
         const db = mongoose.connection;
         db.on('error', console.error.bind(console, 'connection error:'));
-        db.once('open', function() {
+        db.once('open', function () {
             // console.log(`connected to database`)
         });
         db.on('disconnected', connect);

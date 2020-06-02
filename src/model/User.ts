@@ -33,8 +33,7 @@ const schema = new mongoose.Schema({
     },
     passwordResetToken: String,
     passwordResetExpires: Date
-},
-{
+}, {
     timestamps: true
 })
 
