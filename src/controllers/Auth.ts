@@ -69,27 +69,36 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         return res.status(422).json({ errors: errors.array() });
     }
 
-
     try {
         // get form input
         const { email, password } = req.body
 
         // find data by email in database
-        const query = await User.findOne({ email: email }, async (err: any, data: UserDocument) => {
-            // compare password in login
-            const checkPassword = await bcrypt.compare(password, data.password)
-
-            if (checkPassword) {
-                res.send({
-                    _id: data._id,
-                    email: email,
-                    token: jsonGenerate(data._id)
-                })
+        await User.findOne({ email: email }, async (dataError: any, data: UserDocument) => {
+            // check if query error
+            if (dataError) {
+                return next(dataError)
             }
 
-            next(new Error('Login Failed'))
+            // check if data found
+            if (data) {
+                // compare password in login
+                const checkPassword = await bcrypt.compare(password, data.password)
+                if (checkPassword) {
+                    res.send({
+                        _id: data._id,
+                        email: email,
+                        token: jsonGenerate(data._id)
+                    })
+                } else {
+                    next(new Error('Login Failed'))
+                }
+            }
+
+            // if all null, then return account not found
+            next(new Error('Account Not Found.!'))
         })
     } catch (e) {
-        next(e)
+        return next(e)
     }
 }
