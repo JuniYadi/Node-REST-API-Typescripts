@@ -30,3 +30,4 @@ yard dev
     - https://www.freecodecamp.org/news/introduction-to-mongoose-for-mongodb-d2a7aa593c57/
     - https://medium.com/@tomanagle/strongly-typed-models-with-mongoose-and-typescript-7bc2f7197722
     - https://github.com/tomanagle/Mongoose-TypeScript-example
+    - https://github.com/microsoft/TypeScript-Node-Starter
