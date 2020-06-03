@@ -71,17 +71,21 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
 
     try {
         // get form input
-        const { email, password } = req.body
+        const { email, password }: UserDocument = req.body
+        
+        // Set Filter
+        const filter: Object = {
+            email: email
+        }
 
         // find data by email in database
-        await User.findOne({ email: email }, async (dataError: any, data: UserDocument) => {
+        await User.findOne(filter, async (e: any, data: UserDocument) => {
             // check if query error
-            if (dataError) {
-                return next(dataError)
-            }
+            if (e) {
+                next(e)
 
             // check if data found
-            if (data) {
+            } else if(data) {
                 // compare password in login
                 const checkPassword = await bcrypt.compare(password, data.password)
                 if (checkPassword) {
@@ -93,12 +97,43 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
                 } else {
                     next(new Error('Login Failed'))
                 }
-            }
 
             // if all null, then return account not found
-            next(new Error('Account Not Found.!'))
+            } else {
+                next(new Error('Account Not Found.'))
+            }
         })
     } catch (e) {
-        return next(e)
+        next(e)
+    }
+}
+
+export const me = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        // get userID
+        const userId: string = req.body.id
+
+        // Set Filter
+        const filter: Object = {
+            _id: userId
+        }
+
+        // find data by email in database
+        await User.findOne(filter, async (e: any, data: UserDocument) => {
+            // check if query error
+            if (e) {
+                next(e)
+
+            // check if data found
+            } else if(data) {
+                res.send(data)
+                
+            // if all null, then return account not found
+            } else {
+                next(new Error('Account Not Found.'))
+            }
+        })
+    } catch (e) {
+        next(e)
     }
 }
