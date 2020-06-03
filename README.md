@@ -21,6 +21,14 @@ yarn tsc
 yard dev
 ```
 
+## Production
+
+- Ada 2 perbedaan ketika install package :
+    - `yarn install` untuk development dan compile. Size `node_modules` -+ 81MB (Check 2/6/2020)
+    - `yarn install --prod=true` untuk production. Size `node_modules` -+ 26MB (Check 2/6/2020)
+- Jika install menggunakan `yarn install --prod=true`, maka semua package dev dependency akan di lewati, tetapi tidak bisa compile, karena untuk compile, butuh semua paket dev dan dependency
+
+
 ## Reference
 - [Mongoose](https://mongoosejs.com/docs/guide.html)
 - [Bcrypt](https://github.com/kelektiv/node.bcrypt.js#readme)
