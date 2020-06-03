@@ -72,7 +72,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
     try {
         // get form input
         const { email, password }: UserDocument = req.body
-        
+
         // Set Filter
         const filter: Object = {
             email: email
@@ -113,26 +113,21 @@ export const me = async (req: Request, res: Response, next: NextFunction) => {
         // get userID
         const userId: string = req.body.id
 
-        // Set Filter
+        // Set Query Filter
         const filter: Object = {
             _id: userId
         }
 
-        // find data by email in database
-        await User.findOne(filter, async (e: any, data: UserDocument) => {
-            // check if query error
-            if (e) {
-                next(e)
+        // Set Output Filter (Hidden = 0, Show = 1)
+        const outputFilter: Object = {
+            password: 0,
+            __v: 0
+        }
 
-            // check if data found
-            } else if(data) {
-                res.send(data)
-                
-            // if all null, then return account not found
-            } else {
-                next(new Error('Account Not Found.'))
-            }
-        })
+        // find data by email in database
+        const query: any = await User.findOne(filter, outputFilter)
+
+        res.send(query)
     } catch (e) {
         next(e)
     }
