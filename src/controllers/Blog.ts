@@ -5,7 +5,7 @@ import { Blog } from '../model/Blog'
 
 export const index = async (req: Request, res: Response, next: NextFunction) => {    
     try {
-        const query = await Blog.find({})
+        const query = await Blog.paginate({})
 
         res.send(query)
     } catch (e) {

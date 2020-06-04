@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { mongoosePagination } from 'ts-mongoose-pagination'
 
 // Table Name
 const table = 'blog'
@@ -34,5 +35,8 @@ const schema = new mongoose.Schema({
     }
 })
 
+// Added Paginate to Schema Plugin
+schema.plugin(mongoosePagination)
+
 // Export Model
-export const Blog = mongoose.model<BlogDocument>(table, schema)
+export const Blog = mongoose.model(table, schema)
