@@ -114,12 +114,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
 export const me = async (req: Request, res: Response, next: NextFunction) => {
     try {
         // get userID From Middleware Auth
-        const userId: string = req.body.id
-
-        // Set Query Filter
-        const filter: Object = {
-            _id: userId
-        }
+        const userId: string = req.body.userID
 
         // Set Output Filter (Hidden = 0, Show = 1)
         const outputFilter: Object = {
@@ -128,7 +123,7 @@ export const me = async (req: Request, res: Response, next: NextFunction) => {
         }
 
         // find data by email in database
-        const query: any = await User.findOne(filter, outputFilter)
+        const query: any = await User.findById(userId, outputFilter)
 
         // return user data
         res.send(query)
