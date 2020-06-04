@@ -54,6 +54,10 @@ export default class Database {
         // Allow Index
         mongoose.set('useCreateIndex', true)
 
+        // Allow Use Function findOneAndUpdate
+        // https://mongoosejs.com/docs/deprecations.html#findandmodify
+        mongoose.set('useFindAndModify', false);
+
         const db = mongoose.connection;
         db.on('error', console.error.bind(console, 'connection error:'));
         db.once('open', function () {
