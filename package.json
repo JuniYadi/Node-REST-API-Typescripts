@@ -18,7 +18,8 @@
     "express-validator": "^6.5.0",
     "helmet": "^3.22.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.16"
+    "mongoose": "^5.9.16",
+    "ts-mongoose-pagination": "^1.1.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",

@@ -1908,6 +1908,11 @@ touch@^3.1.0:
   dependencies:
     nopt "~1.0.10"
 
+ts-mongoose-pagination@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/ts-mongoose-pagination/-/ts-mongoose-pagination-1.1.2.tgz#6bbd804f2f6100fb59fed3602d174b8c41d2cd24"
+  integrity sha512-KkhfTX5VmGy4WVVkoxxL+M3lx9gSjwjeP1svt4oT9vigPDquX99omH3sm0gvlN1c3JgyVEavtypsw8yl2WGyFA==
+
 tsscmp@1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/tsscmp/-/tsscmp-1.0.6.tgz#85b99583ac3589ec4bfef825b5000aa911d605eb"
