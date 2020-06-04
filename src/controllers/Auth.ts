@@ -38,14 +38,17 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
         const salt = await bcrypt.genSaltSync(10)
         const hash = await bcrypt.hashSync(password, salt)
 
-        // save to database
+        // set object data
         const user = new User({
             name: name,
             email: email,
             password: hash,
         })
 
+        // save to database
         const query = await user.save()
+
+        // return result
         res.send({
             _id: query._id,
             name: name,
@@ -110,7 +113,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
 
 export const me = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        // get userID
+        // get userID From Middleware Auth
         const userId: string = req.body.id
 
         // Set Query Filter
@@ -127,6 +130,7 @@ export const me = async (req: Request, res: Response, next: NextFunction) => {
         // find data by email in database
         const query: any = await User.findOne(filter, outputFilter)
 
+        // return user data
         res.send(query)
     } catch (e) {
         next(e)
