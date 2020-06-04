@@ -26,8 +26,8 @@ export default (req: Request, res: Response, next: NextFunction) => {
             }
 
             // inject userID to Request
-            req.body["id"] = data.id
-
+            req.body["userID"] = data.id
+            
             // continue
             next()
         })
