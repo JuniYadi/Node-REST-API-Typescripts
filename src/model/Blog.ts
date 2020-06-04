@@ -1,10 +1,10 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose from 'mongoose';
 
 // Table Name
 const table = 'blog'
 
-// Interfaces Schema
-export interface IBlog extends Document {
+// Table Types
+export type BlogDocument = mongoose.Document & {
     title: string,
     body: string,
     user_id: string,
@@ -13,7 +13,7 @@ export interface IBlog extends Document {
 }
 
 // Table Schema Collection
-const schema = new Schema({
+const schema = new mongoose.Schema({
     title: {
         type: String,
         required: true
@@ -35,4 +35,4 @@ const schema = new Schema({
 })
 
 // Export Model
-export default mongoose.model<IBlog>(table, schema)
+export const Blog = mongoose.model<BlogDocument>(table, schema)
