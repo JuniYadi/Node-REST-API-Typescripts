@@ -1,9 +1,11 @@
-import { Request, Response, NextFunction } from 'express'
-import { check, sanitize, validationResult } from 'express-validator'
-import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
-import { User, UserDocument } from '../model/User'
-import dotenv from 'dotenv'
+import bcrypt from 'bcryptjs';
+import dotenv from 'dotenv';
+import { NextFunction, Request, Response } from 'express';
+import { check, sanitize, validationResult } from 'express-validator';
+import jwt from 'jsonwebtoken';
+
+import { User, UserDocument } from '../model/User';
+
 dotenv.config()
 
 export const jsonGenerate = (id: string) => {
@@ -35,8 +37,8 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
         const { name, email, password } = req.body
 
         // encrypt password
-        const salt = await bcrypt.genSaltSync(10)
-        const hash = await bcrypt.hashSync(password, salt)
+        const salt = bcrypt.genSaltSync(10)
+        const hash = bcrypt.hashSync(password, salt)
 
         // set object data
         const user = new User({
@@ -87,8 +89,8 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
             if (e) {
                 next(e)
 
-            // check if data found
-            } else if(data) {
+                // check if data found
+            } else if (data) {
                 // compare password in login
                 const checkPassword = await bcrypt.compare(password, data.password)
                 if (checkPassword) {
@@ -101,7 +103,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
                     next(new Error('Login Failed'))
                 }
 
-            // if all null, then return account not found
+                // if all null, then return account not found
             } else {
                 next(new Error('Account Not Found.'))
             }
